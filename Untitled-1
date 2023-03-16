@@ -27,3 +27,4 @@ def price(request, thing, cnt):
     
     return render(request, 'articles/prices.html', context)
     
+    #  context 2개로 예외처리하기
