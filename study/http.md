@@ -382,4 +382,4 @@ def create(request):
 	content = request.POST.get('content')
 ```
 
-→ 결과
+→ 결과`

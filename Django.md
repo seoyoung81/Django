@@ -514,3 +514,61 @@ def index(request):
   
   
   ```
+* request 사용하기
+  ```python
+  def catch(request):
+    message = request.GET.get('message')
+    context = {
+      'message' : message,
+    }
+    return render(request, 'articles/catch.html', context)
+  ```
+  ```html
+  <!-- articles/templates/catch.html-->
+  {% extends 'base.html' %}
+  {% block content %}
+    <h1>Catch</h1>
+    <h2>여기서 {{ message }}를 받았어!!</h2>
+    <a href="/throw/">다시 던지러 가자</a>
+  {% endblock %}
+
+
+### Model
+1. Model 작성하기
+   * 새 프로젝트(crud), 앱(articles) 작성 및 앱 등록
+    `django-admin startproject crud .`
+    `python manage.py startapp articles`
+    ```python
+    # settings.py
+    INSTALLED_APPS = [
+      'articles',
+    ]
+    ```
+  * `models.py` 작성
+    * 데이터베이스 테이블의 스키마를 정의하는 것 (모델 클래스 == 테이블 스키마)
+    ```python
+    # articles/models.py
+    class Article(models.Model):
+      title = models.CharField(max_length=10) # 최대 10글자
+      content = models.TextField()  # 글자수 제한 없음
+    ```
+    * id 컬럼은 테이블 생성시 Django가 자동으로 생성
+    * `CharField(max_length=None, **options)` 데이터 베이스와 Django의 유효성 검사(값을 검증하는 것)에서 활용됨
+    * `TextField(**options)` 유효성 검증 X
+
+**Migrations**
+> Django가 모델에 생긴 변화를 실제 DB에 반영하는 방법
+1. `makemigrations`
+   * 모델의 변경사항에 대한 새로운 migration을 만들 때 사용
+  `python manage.py makemigrations`
+2. `migrate`
+   * 실제 데이터 베이스에 반영하는 과정 (모델의 변경사항과 데이터베이스를 동기화)
+  `python manage.py migrate`
+
+**migration 3단계**
+1. `models.py`에 변경사항이 발생하면
+2. `migration` 생성
+   `makemigrations`
+3. DB 반영 (모델과 DB의 동기화)
+    `migrate`
+-> 이 설계도를 해석하는 것이 **ORM**
