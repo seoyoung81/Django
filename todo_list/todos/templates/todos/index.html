@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <img src="{% static 'IMG_8739.jpeg' %}" alt="img">
+    <h2>오늘의 할 일</h2>
+    {% for todo in todos %}
+    <a href="{% url 'todos:detail' todo.pk %}">
+        <p>todo : {{ todo.title }}</p>
+    </a>
+    
+    
+    {% endfor %}
+
+    <a href="{% url 'todos:create' %}">CREATE</a>
+    
+{% endblock content %}

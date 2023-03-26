@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<p>여기는 detail</p>
+<p>{{todo.pk}} 번째 할 일</p>
+<p>{{todo.title}}</p>
+<p>{{ todo.content }}</p>
+<img src="{{ todo.image.url }} " alt="사진 어디갓냐!"><br>
+    
+
+
+<a href="{% url 'todos:update' todo.pk%}">UPDATE</a><br>
+<a href="{% url 'todos:index'%}">BACK</a>
+{% endblock content %}  
